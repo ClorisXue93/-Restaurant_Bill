@@ -6,9 +6,7 @@ void game(int max, int num) {
     char guess[10];
     printf("Please enter a number from 1-%i: \n", max);
     scanf("%s",&guess);
-    printf("guess is: %s.\n", guess);
     int guess_num = atoi(guess);
-    printf("num is: %i.\n", num);
     while (guess_num != num) {
         if (guess_num > num) {
             printf("The number you entered is too high.\n");
@@ -26,8 +24,6 @@ void game(int max, int num) {
         printf("Please enter again: ");
         scanf("%s",&guess);
         guess_num = atoi(guess);
-        printf("guess is: %s.\n", guess);
-        printf("guess_num is: %i.\n", guess_num);
     }
     if (*guess == 'q' || *guess == 'Q')
     {
@@ -45,6 +41,11 @@ int getNum(int max) {
 int main() {
     int number;
     int max = 10;
+    int test_max = 0;
+    FILE *in_file = fopen("max_number.txt", "r+");
+    fscanf(in_file, "%d", &test_max);
+    if (test_max > 0)
+        max = test_max;
     do {
         printf("Press 1 to play a game.\nPress 2 to change the max number.\nPress 3 to quit.\n");
         printf("Please enter a number: \n");
@@ -68,5 +69,7 @@ int main() {
             game(max, getNum(max));
         }
     } while (number != 3);
+    FILE *out_file = fopen("max_number.txt", "w");
+    fprintf(out_file, "%i", max);
     printf("Game over!");
 }
