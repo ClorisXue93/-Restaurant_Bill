@@ -3,12 +3,20 @@
 #include <time.h>
 
 void game(int max, int num) {
-    int guess;
-    printf("Please enter a number from 1-%i: ", max);
-    scanf("%i", &guess);
-    while (guess != num) {
-        if (guess > num) {
+    char guess[10];
+    printf("Please enter a number from 1-%i: \n", max);
+    scanf("%s",&guess);
+    printf("guess is: %s.\n", guess);
+    int guess_num = atoi(guess);
+    printf("num is: %i.\n", num);
+    while (guess_num != num) {
+        if (guess_num > num) {
             printf("The number you entered is too high.\n");
+        }
+        else if (*guess == 'q' || *guess == 'Q')
+        {
+            printf("Getting back to main menu.\n");
+            return;
         }
         else
         {
@@ -16,7 +24,15 @@ void game(int max, int num) {
 
         }
         printf("Please enter again: ");
-        scanf("%i", &guess);
+        scanf("%s",&guess);
+        guess_num = atoi(guess);
+        printf("guess is: %s.\n", guess);
+        printf("guess_num is: %i.\n", guess_num);
+    }
+    if (*guess == 'q' || *guess == 'Q')
+    {
+        printf("Getting back to main menu.\n");
+        return;
     }
     printf("The number is %i, YOU WIN!!!\n", num);
 }
